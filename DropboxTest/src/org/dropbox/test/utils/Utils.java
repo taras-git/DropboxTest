@@ -20,7 +20,7 @@ public class Utils {
 	 *
 	 * @return the absolute path
 	 */
-	private static Path getAbsolutePath() {
+	public static Path getAbsolutePath() {
 		return Paths.get("").toAbsolutePath();
 	}
 
