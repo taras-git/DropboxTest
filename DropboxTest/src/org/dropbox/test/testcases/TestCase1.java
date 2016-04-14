@@ -11,7 +11,9 @@ public class TestCase1 extends BaseTestCase {
 
 	@Test
 	public void testCase1() throws InterruptedException {
-		System.out.println("in test method");
+		System.out.println("...in test method");
+		dropboxMainPage.openDropbox();
+		dropboxMainPage.isLogoPresent();
 	}
 
 }
