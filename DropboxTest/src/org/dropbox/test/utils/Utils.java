@@ -61,4 +61,8 @@ public class Utils {
 		// return the value in case of success
 		return value;
 	}
+	
+	public static String getGlobalConfigValue(String key){
+		return getIniFileValue(key, "/resources/config/globalConfig.ini");
+	}
 }

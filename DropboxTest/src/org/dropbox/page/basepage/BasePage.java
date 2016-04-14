@@ -92,6 +92,7 @@ public class BasePage {
 	 */
 	public boolean sendText(String text, By locator) {
 		if (isElementPresent(locator)) {
+			driver.findElement(locator).clear();
 			driver.findElement(locator).sendKeys(text);
 			return true;
 		}
@@ -104,8 +105,12 @@ public class BasePage {
 	 * @param locator
 	 *            the locator of the webelement.
 	 */
-	public void clickElement(By locator) {
-		driver.findElement(locator).click();
+	public boolean clickElement(By locator) {
+		if (isElementPresent(locator)) {
+			driver.findElement(locator).click();
+			return true;
+		}
+		return false;
 	}
 
 	/**

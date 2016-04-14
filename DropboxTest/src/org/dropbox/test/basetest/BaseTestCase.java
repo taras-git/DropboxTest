@@ -2,7 +2,8 @@ package org.dropbox.test.basetest;
 
 import java.util.concurrent.TimeUnit;
 
-import org.dropbox.page.dropbox.DropboxMainPage;
+import org.dropbox.page.dropbox.DropboxHomePage;
+import org.dropbox.page.dropbox.DropboxLoginPage;
 import org.dropbox.test.utils.Utils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -17,16 +18,18 @@ public class BaseTestCase {
 	private final String CHROME = "chrome";
 	private final String FIREFOX = "ff";
 	
-	public DropboxMainPage dropboxMainPage;
+	public DropboxLoginPage dropboxLoginPage;
+	public DropboxHomePage dropboxHomePage;
 	
 	public void initWebPages(){
-		dropboxMainPage 		= new DropboxMainPage(driver);
+		dropboxLoginPage 		= new DropboxLoginPage(driver);
+		dropboxHomePage			= new DropboxHomePage(driver);
 	}
 	
 	@BeforeMethod
 	public void setUp() throws Exception {
 		System.out.println("...in Before");
-		getDriver();
+		initDriver();
 		initWebPages();
 	}
 
@@ -56,16 +59,16 @@ public class BaseTestCase {
 	 * @return the Webdriver
 	 * @throws Exception 
 	 */
-	public WebDriver getDriver() throws Exception{
+	public WebDriver initDriver() throws Exception{
 		String browser = Utils.getIniFileValue("browser.type", "/resources/config/globalConfig.ini");
-		
 		String os = System.getProperty("os.name").toLowerCase();
+		driver = null;
 		
 		switch (browser){
+		
 		case FIREFOX : 
 			driver =  new FirefoxDriver();
-			driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-			return driver;
+			break;
 			
 		case CHROME :
 			System.out.println("...OS: " + os);
@@ -78,11 +81,12 @@ public class BaseTestCase {
 			}
 			
 			driver = new ChromeDriver();
-			return driver;
+			break;
 		}
 		
-		return null;
-			
+		int implWait = Integer.parseInt(Utils.getGlobalConfigValue("driver.implicitly.wait"));
+		driver.manage().timeouts().implicitlyWait(implWait, TimeUnit.SECONDS);
+		return driver;			
 	}
 	
 }
