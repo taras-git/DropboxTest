@@ -14,7 +14,7 @@ public class TestLoginLogout extends BaseTestCase {
 	@Test
 	@Parameters({"loginName", "password"})
 	public void testLoginLogout(String loginName, String password) throws InterruptedException {
-		System.out.println("...in test method");
+		System.out.println("-->in test method: " + getClass().getName());
 		
 		login(loginName, password);
 		deleteFile(Utils.getIniFileValue("file.name", iniFile));

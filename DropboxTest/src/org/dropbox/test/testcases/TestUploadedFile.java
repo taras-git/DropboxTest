@@ -15,7 +15,7 @@ public class TestUploadedFile extends BaseTestCase {
 	@Test
 	@Parameters({"loginName", "password"})
 	public void testUploadedFile(String loginName, String password) throws InterruptedException {
-		System.out.println("...in test method");
+		System.out.println("-->in test method: " + getClass().getName());
 		
 		login(loginName, password);
 		

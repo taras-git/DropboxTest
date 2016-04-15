@@ -29,14 +29,14 @@ public class BaseTestCase {
 	
 	@BeforeMethod
 	public void setUp() throws Exception {
-		System.out.println("...in Before");
+		System.out.println("==>in Before");
 		initDriver();
 		initWebPages();
 	}
 
 	@AfterMethod
 	public void tearDown() {
-		System.out.println("...in After");
+		System.out.println("==>in After");
 		quit();
 	}
 	
@@ -63,6 +63,7 @@ public class BaseTestCase {
 	public WebDriver initDriver() throws Exception{
 		String browser = Utils.getIniFileValue("browser.type", "/resources/config/globalConfig.ini");
 		String os = System.getProperty("os.name").toLowerCase();
+		System.out.println("...OS: " + os);
 		driver = null;
 		
 		switch (browser){
@@ -72,7 +73,7 @@ public class BaseTestCase {
 			break;
 			
 		case CHROME :
-			System.out.println("...OS: " + os);
+			
 			if (os.contains("lin")){
 				System.setProperty("webdriver.chrome.driver", Utils.getAbsolutePath() + "/resources/driver/lin/chromedriver");
 			} else if (os.contains("win")){			

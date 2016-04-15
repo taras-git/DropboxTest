@@ -25,8 +25,8 @@ public class TestUploadFile extends BaseTestCase {
 	
 	
 	@Test
-	public void testUploadFile() throws InterruptedException, DbxException, FileNotFoundException, IOException {
-		System.out.println("...in test method");
+	public void testUploadFile() throws InterruptedException, DbxException, FileNotFoundException, IOException {		
+		System.out.println("-->in test method: " + getClass().getName());
 				
 		String textFile = Utils.getAbsolutePath() + Utils.getIniFileValue("upload.text.file", iniFile);
 		String newFileName = Utils.getIniFileValue("file.new.name", iniFile);
