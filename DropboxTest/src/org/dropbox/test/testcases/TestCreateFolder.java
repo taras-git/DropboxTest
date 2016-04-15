@@ -2,6 +2,7 @@ package org.dropbox.test.testcases;
 
 import org.dropbox.test.basetest.BaseTestCase;
 import org.dropbox.test.utils.Utils;
+import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -10,6 +11,7 @@ public class TestCreateFolder extends BaseTestCase {
 	
 	/** The ini file, with values for this testcase */
 	String iniFile = "/resources/data/testcases/TestCreateFolder.ini";
+	String folderName = Utils.getIniFileValue("folder.name", iniFile);
 
 	@Test
 	@Parameters({"loginName", "password"})
@@ -17,8 +19,20 @@ public class TestCreateFolder extends BaseTestCase {
 		System.out.println("-->in test method: " + getClass().getName());
 		
 		login(loginName, password);	
-		String folderName = Utils.getIniFileValue("folder.name", iniFile);
 		dropboxHomePage.createNewFolder(folderName);
 		logout();
 	}	
+	
+	@Test(dependsOnMethods="testCreateFolder")
+	@Parameters({"loginName", "password"})
+	public void testVerifyFolderCreated(String loginName, String password) {
+		System.out.println("-->in test method: " + getClass().getName());
+		
+		login(loginName, password);	
+		if (!dropboxHomePage.isFolderExists(folderName)){
+			Assert.fail("Folder " + folderName + " is not found!!!");
+		}
+		logout();
+	}	
+	
 }

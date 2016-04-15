@@ -65,6 +65,16 @@ public class DropboxHomePage extends BasePage {
 		return false;
 		
 	}
+
+	public boolean isFolderExists(String folderName) {
+		By folderNameXpath = By.xpath(".//a[.='"
+				+ folderName
+				+ "']");
+		if (isElementPresent(folderNameXpath)) {
+			return true;
+		}
+		return false;
+	}
 	
 
 }

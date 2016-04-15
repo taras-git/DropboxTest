@@ -96,7 +96,7 @@ public class Utils {
         while (true) {
 			if (printItems) {
 				for (Metadata metadata : result.getEntries()) {
-					System.out.println("...found item: " + metadata.getPathLower() + " > " + metadata.getClass());
+					System.out.println("...found item: " + metadata.getPathLower() + " -> " + metadata.getClass());
 				}
 			}
 
