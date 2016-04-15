@@ -12,18 +12,16 @@ public class DropboxHomePage extends BasePage {
 		super(driver);
 	}
 	
-	String feedLinkXpath = ".//*[@id='notification-feed-nav-link']/span/button";
+	By feedLinkXpath = By.xpath(".//*[@id='notification-feed-nav-link']/span/button");
 	By userAccountButtonXpath = By.xpath(".//*[@id='header-account-menu']/span/button");
-	String signOutLinkXpath = ".//a[contains(text(), 'Sign out') and @class='standalone clearfix' and @href='/logout']";
-	String uploadIconXpath = ".//*[@id='upload_button']/img";
-	String chooseFileButtonXpath = ".//*[@id='choose-button']";
-	String doneUploadButtonXpath = ".//*[@id='done-button']";
-	
+	By signOutLinkXpath = By.xpath(".//a[contains(text(), 'Sign out')"
+			+ " and @class='standalone clearfix'"
+			+ " and @href='/logout']");	
 	By deleteOptionMenu = By.xpath(".//button[@id='delete_button']");
 	By deleteConfirmDialog = By.xpath(".//button[.='Delete']");
 	
 	public boolean isHomePage(){
-		if (isElementPresent(By.xpath(feedLinkXpath))) {
+		if (isElementPresent(feedLinkXpath)) {
 			return true;
 		}
 		return false;
@@ -31,7 +29,7 @@ public class DropboxHomePage extends BasePage {
 
 	public boolean signOut() {
 		clickElement(userAccountButtonXpath);
-		return clickElement(By.xpath(signOutLinkXpath));		
+		return clickElement(signOutLinkXpath);		
 	}
 
 	public boolean isFilePresent(String fileName) {
@@ -51,7 +49,6 @@ public class DropboxHomePage extends BasePage {
 		action.contextClick(file)
 					.build()
 					.perform();
-		
 
 		driver.findElement(deleteOptionMenu).click();
 		driver.findElement(deleteConfirmDialog).click();

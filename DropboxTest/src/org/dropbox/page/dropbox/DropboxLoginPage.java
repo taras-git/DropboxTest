@@ -12,17 +12,18 @@ public class DropboxLoginPage extends BasePage {
 		super(driver);
 	}
 	
-	String signInXpath 			= ".//a[@id='sign-in']";
-	String dropboxLogoXpath 	= ".//h1[@id='dropbox-logo']";
-	String userEmailXpath 		= "(.//input[starts-with(@id,'pyxl')"
+	By signInXpath 			= By.xpath(".//a[@id='sign-in']");
+	By dropboxLogoXpath 	= By.xpath(".//h1[@id='dropbox-logo']");
+	By userEmailXpath 		= By.xpath("(.//input[starts-with(@id,'pyxl')"
 			+ " and @class='text-input-input autofocus'"
 			+ " and @type='email'"
-			+ " and @name='login_email'])[1]";
-	String userPasswordXpath	= "(.//input[starts-with(@id,'pyxl')"
+			+ " and @name='login_email'])[1]");
+	By userPasswordXpath	= By.xpath("(.//input[starts-with(@id,'pyxl')"
 			+ " and @class='password-input text-input-input'"
 			+ " and @type='password'"
-			+ " and @name='login_password'])[1]";
-	String signInButtonXpath 	= "(.//div[@class=\"sign-in-text\" and contains(text(),\"Sign in\")])[1]";
+			+ " and @name='login_password'])[1]");
+	By signInButtonXpath 	= By.xpath("(.//div[@class=\"sign-in-text\""
+			+ " and contains(text(),\"Sign in\")])[1]");
 
 
 	/**
@@ -31,7 +32,7 @@ public class DropboxLoginPage extends BasePage {
 	 * @return true, if logo is present
 	 */
 	public boolean isLogoPresent() {
-		return isElementPresentByXpath(dropboxLogoXpath);
+		return isElementPresent(dropboxLogoXpath);
 	}
 	
 	/**
@@ -44,14 +45,14 @@ public class DropboxLoginPage extends BasePage {
 	}
 	
 	public void clickSignIn(){
-		driver.findElement(By.xpath(signInXpath)).click();
+		driver.findElement(signInXpath).click();
 	}
 
 	public void signIn(String userEmail, String password) {
 		clickSignIn();
-		sendText(userEmail, By.xpath(userEmailXpath));
-		sendText(password, By.xpath(userPasswordXpath));
-		clickElement(By.xpath(signInButtonXpath));
+		sendText(userEmail, userEmailXpath);
+		sendText(password, userPasswordXpath);
+		clickElement(signInButtonXpath);
 	}
 
 
