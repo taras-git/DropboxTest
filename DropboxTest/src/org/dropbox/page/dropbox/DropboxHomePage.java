@@ -3,6 +3,8 @@ package org.dropbox.page.dropbox;
 import org.dropbox.page.basepage.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 public class DropboxHomePage extends BasePage {
 
@@ -11,8 +13,14 @@ public class DropboxHomePage extends BasePage {
 	}
 	
 	String feedLinkXpath = ".//*[@id='notification-feed-nav-link']/span/button";
-	String userAccountButtonXpath = ".//*[@id='header-account-menu']/span/button";
+	By userAccountButtonXpath = By.xpath(".//*[@id='header-account-menu']/span/button");
 	String signOutLinkXpath = ".//a[contains(text(), 'Sign out') and @class='standalone clearfix' and @href='/logout']";
+	String uploadIconXpath = ".//*[@id='upload_button']/img";
+	String chooseFileButtonXpath = ".//*[@id='choose-button']";
+	String doneUploadButtonXpath = ".//*[@id='done-button']";
+	
+	By deleteOptionMenu = By.xpath(".//button[@id='delete_button']");
+	By deleteConfirmDialog = By.xpath(".//button[.='Delete']");
 	
 	public boolean isHomePage(){
 		if (isElementPresent(By.xpath(feedLinkXpath))) {
@@ -22,8 +30,32 @@ public class DropboxHomePage extends BasePage {
 	}
 
 	public boolean signOut() {
-		clickElement(By.xpath(userAccountButtonXpath));
+		clickElement(userAccountButtonXpath);
 		return clickElement(By.xpath(signOutLinkXpath));		
 	}
+
+	public boolean isFilePresent(String fileName) {
+		String fileNameXpath = ".//a[.='" + fileName + "']";
+		if (isElementPresentByXpath(fileNameXpath)) {
+			return true;
+		}
+		return false;
+		
+	}
+
+	public void deleteFile(String fileName) {
+		By fileNameXpath = By.xpath(".//a[.='" + fileName + "']");
+		WebElement file = driver.findElement(fileNameXpath);
+		
+		Actions action= new Actions(driver);
+		action.contextClick(file)
+					.build()
+					.perform();
+		
+
+		driver.findElement(deleteOptionMenu).click();
+		driver.findElement(deleteConfirmDialog).click();
+	}
+	
 
 }

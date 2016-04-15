@@ -8,6 +8,7 @@ import org.dropbox.test.utils.Utils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
@@ -87,6 +88,33 @@ public class BaseTestCase {
 		int implWait = Integer.parseInt(Utils.getGlobalConfigValue("driver.implicitly.wait"));
 		driver.manage().timeouts().implicitlyWait(implWait, TimeUnit.SECONDS);
 		return driver;			
+	}
+	
+	public void login(String loginName, String password) {
+		dropboxLoginPage.openDropbox();
+		if (!dropboxLoginPage.isLogoPresent()){
+			Assert.fail("Dropbox logo is not found!!!");
+		}
+		dropboxLoginPage.signIn(loginName, password);
+		if (!dropboxHomePage.isHomePage()) {
+			Assert.fail("Not logged to Dropbox!!!");
+		}
+	}
+	
+	public void logout() {
+		dropboxHomePage.signOut();
+		if (!dropboxLoginPage.isLogoPresent()){
+			Assert.fail("Logout failed!!!");
+		}
+	}
+	
+	public void deleteFile(String fileName) {
+		if (dropboxHomePage.isFilePresent(fileName)) {
+			System.out.println("...found file, deleting");
+			dropboxHomePage.deleteFile(fileName);
+		} else {
+			System.out.println("...No files found");
+		}
 	}
 	
 }

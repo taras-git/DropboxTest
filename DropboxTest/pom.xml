@@ -86,13 +86,13 @@
 							<mailport>465</mailport>
 							<mailssl>true</mailssl>
 							<mailAltConfig>true</mailAltConfig>
-							<mailuser>dropbox.tester@yahoo.com</mailuser>
+							<mailuser>dropboxwebdriver@yahoo.com</mailuser>
 							<mailpassword>1Selenium!</mailpassword>
-							<from>dropbox.tester@yahoo.com</from>
+							<from>dropboxwebdriver@yahoo.com</from>
 
 							<receivers>
 								<receiver>taraspol@gmail.com</receiver>
-								<receiver>dropbox.tester@yahoo.com</receiver>
+								<receiver>dropboxwebdriver@yahoo.com</receiver>
 							</receivers>
 
 							<subject>Selenium Test Run</subject>
@@ -156,11 +156,17 @@
 			<artifactId>selenium-firefox-driver</artifactId>
 			<version>2.52.0</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-chrome-driver</artifactId>
 			<version>2.53.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.dropbox.core</groupId>
+			<artifactId>dropbox-core-sdk</artifactId>
+			<version>2.0.1</version>
 		</dependency>
 
 	</dependencies>

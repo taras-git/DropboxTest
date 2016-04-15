@@ -1,11 +1,18 @@
 package org.dropbox.test.utils;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Properties;
+
+import com.dropbox.core.DbxException;
+import com.dropbox.core.DbxRequestConfig;
+import com.dropbox.core.v2.DbxClientV2;
+import com.dropbox.core.v2.files.FileMetadata;
+import com.dropbox.core.v2.users.FullAccount;
 
 /**
  * The Class Utils. Holds the static methods to work with Property files, and
@@ -65,4 +72,31 @@ public class Utils {
 	public static String getGlobalConfigValue(String key){
 		return getIniFileValue(key, "/resources/config/globalConfig.ini");
 	}
+	
+	public static void waitFor(int millisec) throws InterruptedException {
+		Thread.sleep(millisec);
+	}
+	
+	public static boolean uploadFile(String file, String dropboxFileName) throws InterruptedException, DbxException, FileNotFoundException, IOException {
+		DbxClientV2 client = getClient();
+        
+        try (InputStream in = new FileInputStream(file)) {
+            client.files().uploadBuilder("/" + dropboxFileName).uploadAndFinish(in);
+        }
+        		
+		return true;
+	}
+	
+//	public static void getFiles(){
+//		DbxClientV2 client = getClient();
+//		client.files().search(path, query);
+//	}
+
+	private static DbxClientV2 getClient() {
+		String accessToken = getGlobalConfigValue("dropbox.access.token");
+		DbxRequestConfig config = new DbxRequestConfig("dropbox/java-tutorial", "en_US");
+        DbxClientV2 client = new DbxClientV2(config, accessToken);
+		return client;
+	}
+
 }
