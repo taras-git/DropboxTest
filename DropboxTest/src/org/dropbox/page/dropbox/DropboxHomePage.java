@@ -19,6 +19,8 @@ public class DropboxHomePage extends BasePage {
 			+ " and @href='/logout']");	
 	By deleteOptionMenu = By.xpath(".//button[@id='delete_button']");
 	By deleteConfirmDialog = By.xpath(".//button[.='Delete']");
+	By createNewFolderButton = By.xpath(".//a[@id='new_folder_button']/img");
+	By folderNameInput = By.xpath(".//*[@id='null']/input");
 	
 	public boolean isHomePage(){
 		if (isElementPresent(feedLinkXpath)) {
@@ -52,6 +54,16 @@ public class DropboxHomePage extends BasePage {
 
 		driver.findElement(deleteOptionMenu).click();
 		driver.findElement(deleteConfirmDialog).click();
+	}
+
+	public boolean createNewFolder(String folderName) {
+		if (isElementPresent(createNewFolderButton)){
+			driver.findElement(createNewFolderButton).click();
+			driver.findElement(folderNameInput).sendKeys(folderName);
+			return true;
+		}
+		return false;
+		
 	}
 	
 

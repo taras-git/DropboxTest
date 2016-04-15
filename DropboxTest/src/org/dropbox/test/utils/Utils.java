@@ -11,8 +11,9 @@ import java.util.Properties;
 import com.dropbox.core.DbxException;
 import com.dropbox.core.DbxRequestConfig;
 import com.dropbox.core.v2.DbxClientV2;
-import com.dropbox.core.v2.files.FileMetadata;
-import com.dropbox.core.v2.users.FullAccount;
+import com.dropbox.core.v2.files.ListFolderErrorException;
+import com.dropbox.core.v2.files.ListFolderResult;
+import com.dropbox.core.v2.files.Metadata;
 
 /**
  * The Class Utils. Holds the static methods to work with Property files, and
@@ -87,10 +88,36 @@ public class Utils {
 		return true;
 	}
 	
-//	public static void getFiles(){
-//		DbxClientV2 client = getClient();
-//		client.files().search(path, query);
-//	}
+	public static ListFolderResult getItems(boolean printItems) throws ListFolderErrorException, DbxException{
+		DbxClientV2 client = getClient();
+		
+		ListFolderResult result = client.files().listFolder("");
+
+        while (true) {
+			if (printItems) {
+				for (Metadata metadata : result.getEntries()) {
+					System.out.println("...found item: " + metadata.getPathLower() + " > " + metadata.getClass());
+				}
+			}
+
+            if (!result.getHasMore()) {
+                break;
+            }
+
+            result = client.files().listFolderContinue(result.getCursor());
+        }
+
+        return result;
+	}
+	
+	public static void cleanUpDropbox() throws ListFolderErrorException, DbxException{
+		DbxClientV2 client = getClient();
+		ListFolderResult result = getItems(false);
+		for (Metadata item : result.getEntries()) {
+			client.files().delete(item.getPathDisplay());
+			System.out.println("...deleted: " + item.getName());
+		}
+	}
 
 	private static DbxClientV2 getClient() {
 		String accessToken = getGlobalConfigValue("dropbox.access.token");

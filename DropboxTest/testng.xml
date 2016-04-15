@@ -5,9 +5,16 @@
 		<parameter name="loginName" value="dropboxwebdriver@yahoo.com" />
 		<parameter name="password" value="1Selenium!" />
 		<classes>
+		    
+		    <class name="org.dropbox.test.testcases.DropboxCleanUpBefore" />
+		    
 			<class name="org.dropbox.test.testcases.TestLoginLogout" />
 			<class name="org.dropbox.test.testcases.TestUploadFile" />
-			<class name="org.dropbox.test.testcases.TestUploadedFile" />	
+			<class name="org.dropbox.test.testcases.TestUploadedFile" />
+			<class name="org.dropbox.test.testcases.TestCreateFolder" />
+			
+			<class name="org.dropbox.test.testcases.DropboxCleanUpAfter" />
+			
 		</classes>
 	</test>
 </suite> 
