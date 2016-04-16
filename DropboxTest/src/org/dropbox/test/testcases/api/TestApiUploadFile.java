@@ -1,4 +1,4 @@
-package org.dropbox.test.testcases;
+package org.dropbox.test.testcases.api;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 import com.dropbox.core.DbxException;
 
 
-public class TestUploadFile extends BaseTestCase {
+public class TestApiUploadFile extends BaseTestCase {
 	
 	/** The ini file, with values for this testcase */
 	String iniFile = "/resources/data/testcases/TestUploadFile.ini";

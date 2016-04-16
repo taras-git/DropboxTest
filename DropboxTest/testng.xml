@@ -6,14 +6,12 @@
 		<parameter name="password" value="1Selenium!" />
 		<classes>
 		    
-		    <class name="org.dropbox.test.testcases.DropboxCleanUpBefore" />
+		    <class name="org.dropbox.test.testcases.DropboxCleanUp" />
 		    
-			<class name="org.dropbox.test.testcases.TestLoginLogout" />
-			<class name="org.dropbox.test.testcases.TestUploadFile" />
-			<class name="org.dropbox.test.testcases.TestUploadedFile" />
-			<class name="org.dropbox.test.testcases.TestCreateFolder" />
-			
-			<class name="org.dropbox.test.testcases.DropboxCleanUpAfter" />
+			<class name="org.dropbox.test.testcases.ui.TestUiLoginLogout" />
+			<class name="org.dropbox.test.testcases.api.TestApiUploadFile" />
+			<class name="org.dropbox.test.testcases.ui.TestUiUploadedFile" />
+			<class name="org.dropbox.test.testcases.ui.TestUiCreateFolder" />
 			
 		</classes>
 	</test>
