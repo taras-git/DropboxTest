@@ -24,7 +24,7 @@ public class TestApiUploadFile extends BaseTestCase {
 	public void tearDown(){}
 	
 	@Test
-	public void testUploadFile() throws InterruptedException, DbxException, FileNotFoundException, IOException {		
+	public void testApiUploadFile() throws InterruptedException, DbxException, FileNotFoundException, IOException {		
 		System.out.println("-->in test method: " + getClass().getName());
 				
 		String textFile = Utils.getAbsolutePath() + Utils.getIniFileValue("upload.text.file", iniFile);

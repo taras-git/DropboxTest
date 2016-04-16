@@ -29,7 +29,7 @@ public class TestApiMovedFile extends BaseTestCase {
 	public void tearDown(){}
 	
 	@Test
-	public void testUiMoveFile() throws ListFolderErrorException, DbxException  {
+	public void testApiMoveFile() throws ListFolderErrorException, DbxException  {
 		System.out.println("-->in test method: " + getClass().getName());
 
 		String movedFile = "/" + folderName + "/" + fileName;

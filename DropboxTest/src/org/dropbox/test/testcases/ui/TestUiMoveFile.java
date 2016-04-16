@@ -18,7 +18,7 @@ public class TestUiMoveFile extends BaseTestCase {
 
 	@Test
 	@Parameters({"loginName", "password"})
-	public void testUiMoveFile(String loginName, String password) throws InterruptedException {
+	public void testMoveFile(String loginName, String password) throws InterruptedException {
 		System.out.println("-->in test method: " + getClass().getName());
 		
 		login(loginName, password);
