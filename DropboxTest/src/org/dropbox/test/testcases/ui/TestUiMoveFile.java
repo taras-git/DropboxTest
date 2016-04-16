@@ -7,10 +7,10 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 
-public class TestUiUploadedFile extends BaseTestCase {
+public class TestUiMoveFile extends BaseTestCase {
 	
 	/** The ini file, with values for this testcase */
-	String iniFile = "/resources/data/testcases/TestApiUploadFile.ini";
+	String iniFile = "/resources/data/testcases/TestUiMoveFile.ini";
 
 	@Test
 	@Parameters({"loginName", "password"})

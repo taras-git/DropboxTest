@@ -15,7 +15,7 @@ import com.dropbox.core.DbxException;
 public class TestApiUploadFile extends BaseTestCase {
 	
 	/** The ini file, with values for this testcase */
-	String iniFile = "/resources/data/testcases/TestUploadFile.ini";
+	String iniFile = "/resources/data/testcases/TestApiUploadFile.ini";
 
 	@BeforeMethod
 	public void setUp(){}

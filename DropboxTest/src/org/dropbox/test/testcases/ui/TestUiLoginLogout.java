@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 public class TestUiLoginLogout extends BaseTestCase {
 	
 	/** The ini file, with values for this testcase */
-	String iniFile = "/resources/data/testcases/TestLoginLogout.ini";
+	String iniFile = "/resources/data/testcases/TestUiLoginLogout.ini";
 
 	@Test
 	@Parameters({"loginName", "password"})

@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 public class TestUiCreateFolder extends BaseTestCase {
 	
 	/** The ini file, with values for this testcase */
-	String iniFile = "/resources/data/testcases/TestCreateFolder.ini";
+	String iniFile = "/resources/data/testcases/TestUiCreateFolder.ini";
 	String folderName = Utils.getIniFileValue("folder.name", iniFile);
 
 	@Test
