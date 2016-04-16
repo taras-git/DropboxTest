@@ -110,7 +110,7 @@ public class BaseTestCase {
 	}
 	
 	public void deleteFile(String fileName) {
-		if (dropboxHomePage.isFilePresent(fileName)) {
+		if (dropboxHomePage.isFileExist(fileName)) {
 			System.out.println("...found file, deleting");
 			dropboxHomePage.deleteFile(fileName);
 		} else {

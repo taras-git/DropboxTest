@@ -15,8 +15,7 @@ public class DropboxCleanUp extends BaseTestCase {
 	@AfterSuite
 	public void dropboxCleanUp() throws ListFolderErrorException, DbxException {
 		System.out.println("-->in test method: " + getClass().getName());
-				
-		Utils.getItems(true);
+		Utils.listItems();
 		Utils.cleanUpDropbox();
 	}
 }

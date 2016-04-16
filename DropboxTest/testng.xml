@@ -7,11 +7,13 @@
 		<classes>
 		    
 		    <class name="org.dropbox.test.testcases.DropboxCleanUp" />
-		    
 			<class name="org.dropbox.test.testcases.ui.TestUiLoginLogout" />
 			<class name="org.dropbox.test.testcases.api.TestApiUploadFile" />
 			<class name="org.dropbox.test.testcases.ui.TestUiUploadedFile" />
 			<class name="org.dropbox.test.testcases.ui.TestUiCreateFolder" />
+			<class name="org.dropbox.test.testcases.ui.TestUiMoveFile" />
+			<class name="org.dropbox.test.testcases.api.TestApiMovedFile" />
+			
 			
 		</classes>
 	</test>

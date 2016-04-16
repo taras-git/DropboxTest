@@ -20,7 +20,7 @@ public class TestUiUploadedFile extends BaseTestCase {
 		login(loginName, password);
 		
 		String fileName = Utils.getIniFileValue("file.new.name", iniFile);
-		if (!dropboxHomePage.isFilePresent(fileName)) {
+		if (!dropboxHomePage.isFileExist(fileName)) {
 			Assert.fail("File: " + fileName + " is not found!!!");
 		} else {
 			System.out.println("...File found: " + fileName);

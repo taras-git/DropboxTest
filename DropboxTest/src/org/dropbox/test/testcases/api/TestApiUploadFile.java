@@ -23,7 +23,6 @@ public class TestApiUploadFile extends BaseTestCase {
 	@AfterMethod
 	public void tearDown(){}
 	
-	
 	@Test
 	public void testUploadFile() throws InterruptedException, DbxException, FileNotFoundException, IOException {		
 		System.out.println("-->in test method: " + getClass().getName());
@@ -33,7 +32,5 @@ public class TestApiUploadFile extends BaseTestCase {
 		System.out.println("...text file: " + textFile);
 		System.out.println("...new name: " + newFileName);
 		Utils.uploadFile(textFile, newFileName);
-		
 	}	
-	
 }

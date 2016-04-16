@@ -134,4 +134,11 @@ public class BasePage {
 		Set<String> windowsSet = driver.getWindowHandles();
 		driver.switchTo().window((String) windowsSet.toArray()[0]);
 	}
+	
+	public void rightClickOnWebElement(WebElement element) {
+		Actions action= new Actions(driver);
+		action.contextClick(element)
+					.build()
+					.perform();
+	}
 }

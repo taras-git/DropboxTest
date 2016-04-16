@@ -4,7 +4,6 @@ import org.dropbox.page.basepage.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 
 public class DropboxHomePage extends BasePage {
 
@@ -19,6 +18,8 @@ public class DropboxHomePage extends BasePage {
 			+ " and @href='/logout']");	
 	By deleteOptionMenu = By.xpath(".//button[@id='delete_button']");
 	By deleteConfirmDialog = By.xpath(".//button[.='Delete']");
+	By moveOptionMenu = By.xpath(".//button[@id='move_button']");
+	By moveConfirmDialog = By.xpath(".//input[@value='Move']");
 	By createNewFolderButton = By.xpath(".//a[@id='new_folder_button']/img");
 	By folderNameInput = By.xpath(".//*[@id='null']/input");
 	
@@ -34,9 +35,9 @@ public class DropboxHomePage extends BasePage {
 		return clickElement(signOutLinkXpath);		
 	}
 
-	public boolean isFilePresent(String fileName) {
-		String fileNameXpath = ".//a[.='" + fileName + "']";
-		if (isElementPresentByXpath(fileNameXpath)) {
+	public boolean isFileExist(String fileName) {
+		By fileNameXpath = By.xpath(".//a[.='" + fileName + "']");
+		if (isElementPresent(fileNameXpath)) {
 			return true;
 		}
 		return false;
@@ -46,14 +47,22 @@ public class DropboxHomePage extends BasePage {
 	public void deleteFile(String fileName) {
 		By fileNameXpath = By.xpath(".//a[.='" + fileName + "']");
 		WebElement file = driver.findElement(fileNameXpath);
-		
-		Actions action= new Actions(driver);
-		action.contextClick(file)
-					.build()
-					.perform();
-
+		rightClickOnWebElement(file);
 		driver.findElement(deleteOptionMenu).click();
 		driver.findElement(deleteConfirmDialog).click();
+	}
+	
+	public void moveFile(String fileName, String folderName) {
+		By fileNameXpath = By.xpath(".//a[.='" + fileName + "']");
+		By folderNameXpath = By.xpath(".//a[.='"
+				+ folderName
+				+ "']/img");
+		WebElement file = driver.findElement(fileNameXpath);
+		rightClickOnWebElement(file);
+		clickElement(moveOptionMenu);
+		clickElement(folderNameXpath);
+		clickElement(moveConfirmDialog);
+
 	}
 
 	public boolean createNewFolder(String folderName) {

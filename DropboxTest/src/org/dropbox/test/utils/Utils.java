@@ -6,11 +6,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import com.dropbox.core.DbxException;
 import com.dropbox.core.DbxRequestConfig;
 import com.dropbox.core.v2.DbxClientV2;
+import com.dropbox.core.v2.files.FolderMetadata;
 import com.dropbox.core.v2.files.ListFolderErrorException;
 import com.dropbox.core.v2.files.ListFolderResult;
 import com.dropbox.core.v2.files.Metadata;
@@ -80,39 +82,56 @@ public class Utils {
 	
 	public static boolean uploadFile(String file, String dropboxFileName) throws InterruptedException, DbxException, FileNotFoundException, IOException {
 		DbxClientV2 client = getClient();
-        
+		
         try (InputStream in = new FileInputStream(file)) {
             client.files().uploadBuilder("/" + dropboxFileName).uploadAndFinish(in);
-        }
+        }        
         		
 		return true;
 	}
 	
-	public static ListFolderResult getItems(boolean printItems) throws ListFolderErrorException, DbxException{
+	public static ListFolderResult getItems() throws ListFolderErrorException, DbxException{
 		DbxClientV2 client = getClient();
+		ListFolderResult result = getClient().files().listFolder("");
 		
-		ListFolderResult result = client.files().listFolder("");
-
         while (true) {
-			if (printItems) {
-				for (Metadata metadata : result.getEntries()) {
-					System.out.println("...found item: " + metadata.getPathLower() + " -> " + metadata.getClass());
-				}
-			}
-
             if (!result.getHasMore()) {
                 break;
             }
-
             result = client.files().listFolderContinue(result.getCursor());
         }
 
         return result;
 	}
 	
+	public static ArrayList<String> listItems() throws ListFolderErrorException, DbxException {
+		ArrayList<String> list = new ArrayList<String>();
+		return listItems("", list);
+	}
+	
+	public static ArrayList<String> listItems(String folder, ArrayList<String> list) throws ListFolderErrorException, DbxException {
+		DbxClientV2 client = getClient();
+		ListFolderResult result = client.files().listFolder(folder);
+
+		while (true) {
+			for (Metadata metadata : result.getEntries()) {
+				System.out.println("...found item: " + metadata.getPathDisplay() + " -> " + metadata.getClass());
+				list.add(metadata.getPathDisplay());
+				if (metadata instanceof FolderMetadata) {
+					listItems(metadata.getPathDisplay(), list);
+				}
+			}
+			if (!result.getHasMore()) {
+				break;
+			}
+			result = client.files().listFolderContinue(result.getCursor());
+		}
+		return list;
+	}
+	
 	public static void cleanUpDropbox() throws ListFolderErrorException, DbxException{
 		DbxClientV2 client = getClient();
-		ListFolderResult result = getItems(false);
+		ListFolderResult result = getItems();
 		for (Metadata item : result.getEntries()) {
 			client.files().delete(item.getPathDisplay());
 			System.out.println("...deleted: " + item.getName());
@@ -122,7 +141,7 @@ public class Utils {
 	private static DbxClientV2 getClient() {
 		String accessToken = getGlobalConfigValue("dropbox.access.token");
 		DbxRequestConfig config = new DbxRequestConfig("dropbox/java-tutorial", "en_US");
-        DbxClientV2 client = new DbxClientV2(config, accessToken);
+		DbxClientV2 client = new DbxClientV2(config, accessToken);
 		return client;
 	}
 
