@@ -23,6 +23,12 @@ public class DropboxHomePage extends BasePage {
 	By createNewFolderButton = By.xpath(".//a[@id='new_folder_button']/img");
 	By folderNameInput = By.xpath(".//*[@id='null']/input");
 	
+	
+	/**
+	 * Checks if user is logged to Dropbox, and the home page is opened.
+	 *
+	 * @return true, if home page is opened
+	 */
 	public boolean isHomePage(){
 		if (isElementPresent(feedLinkXpath)) {
 			return true;
@@ -30,13 +36,27 @@ public class DropboxHomePage extends BasePage {
 		return false;
 	}
 
+	/**
+	 * Choose "Sign out" option from the menu and click on it.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean signOut() {
 		clickElement(userAccountButtonXpath);
 		return clickElement(signOutLinkXpath);		
 	}
 
+	/**
+	 * Checks if file name is displayed on Dropbox home page.
+	 *
+	 * @param fileName
+	 *            the file name
+	 * @return true, if is file exist
+	 */
 	public boolean isFileExist(String fileName) {
-		By fileNameXpath = By.xpath(".//a[.='" + fileName + "']");
+		By fileNameXpath = By.xpath(".//a[.='" 
+				+ fileName 
+				+ "']");
 		if (isElementPresent(fileNameXpath)) {
 			return true;
 		}
@@ -44,16 +64,37 @@ public class DropboxHomePage extends BasePage {
 		
 	}
 
+	/**
+	 * Delete file by clicking with right mouse button on it and choosing Delete
+	 * option.
+	 *
+	 * @param fileName
+	 *            the file name
+	 */
 	public void deleteFile(String fileName) {
-		By fileNameXpath = By.xpath(".//a[.='" + fileName + "']");
+		By fileNameXpath = By.xpath(".//a[.='" 
+				+ fileName 
+				+ "']");
 		WebElement file = driver.findElement(fileNameXpath);
 		rightClickOnWebElement(file);
 		driver.findElement(deleteOptionMenu).click();
 		driver.findElement(deleteConfirmDialog).click();
 	}
 	
+	
+	/**
+	 * Move file by clicking right mouse button on it and choosing Move option.
+	 * After click on desired folder to move.
+	 *
+	 * @param fileName
+	 *            the file name
+	 * @param folderName
+	 *            the folder name
+	 */
 	public void moveFile(String fileName, String folderName) {
-		By fileNameXpath = By.xpath(".//a[.='" + fileName + "']");
+		By fileNameXpath = By.xpath(".//a[.='" 
+				+ fileName 
+				+ "']");
 		By folderNameXpath = By.xpath(".//a[.='"
 				+ folderName
 				+ "']/img");
@@ -65,6 +106,14 @@ public class DropboxHomePage extends BasePage {
 
 	}
 
+	/**
+	 * Creates new folder by clicking New Folder icon and sends the new folder
+	 * name to the field.
+	 *
+	 * @param folderName
+	 *            the folder name
+	 * @return true, if successful
+	 */
 	public boolean createNewFolder(String folderName) {
 		if (isElementPresent(createNewFolderButton)){
 			driver.findElement(createNewFolderButton).click();
@@ -75,6 +124,13 @@ public class DropboxHomePage extends BasePage {
 		
 	}
 
+	/**
+	 * Checks if folder name is displayed on Dropbox home page.
+	 *
+	 * @param folderName
+	 *            the folder name
+	 * @return true, if is folder exists
+	 */
 	public boolean isFolderExists(String folderName) {
 		By folderNameXpath = By.xpath(".//a[.='"
 				+ folderName
@@ -84,6 +140,5 @@ public class DropboxHomePage extends BasePage {
 		}
 		return false;
 	}
-	
 
 }

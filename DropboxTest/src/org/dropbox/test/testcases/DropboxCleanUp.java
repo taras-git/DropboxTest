@@ -11,6 +11,15 @@ import com.dropbox.core.v2.files.ListFolderErrorException;
 
 public class DropboxCleanUp extends BaseTestCase {
 
+	/**
+	 * This method executes before and after each test run. Deletes all files
+	 * and custom folders from the root Dropbox folder.
+	 *
+	 * @throws ListFolderErrorException
+	 *             the list folder error exception
+	 * @throws DbxException
+	 *             the dbx exception
+	 */
 	@BeforeSuite
 	@AfterSuite
 	public void dropboxCleanUp() throws ListFolderErrorException, DbxException {

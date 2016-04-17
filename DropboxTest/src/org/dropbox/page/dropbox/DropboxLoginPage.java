@@ -44,16 +44,26 @@ public class DropboxLoginPage extends BasePage {
 		driver.get(dropboxUrl);	
 	}
 	
+	/**
+	 * Click Sign In link on the Login page.
+	 */
 	public void clickSignIn(){
 		driver.findElement(signInXpath).click();
 	}
 
+	/**
+	 * Click Sign In link on the Login page, sends user credentials to
+	 * appropriate fields and click Sign In button.
+	 *
+	 * @param userEmail
+	 *            the user email
+	 * @param password
+	 *            the password
+	 */
 	public void signIn(String userEmail, String password) {
 		clickSignIn();
 		sendText(userEmail, userEmailXpath);
 		sendText(password, userPasswordXpath);
 		clickElement(signInButtonXpath);
 	}
-
-
 }

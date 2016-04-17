@@ -18,8 +18,13 @@ import com.dropbox.core.v2.files.ListFolderResult;
 import com.dropbox.core.v2.files.Metadata;
 
 /**
- * The Class Utils. Holds the static methods to work with Property files, and
- * retrieves the value based on appropriate key.
+ * The Class Utils.
+ * 
+ * Holds the static methods to work with Property files, and retrieves the value
+ * based on appropriate key.
+ * 
+ * Holds the static methods to work with DropBox API calls
+ * 
  *
  * @author Taras Tymchyshyn
  */
@@ -72,14 +77,46 @@ public class Utils {
 		return value;
 	}
 	
+	/**
+	 * Gets the value from global config file globalConfig.ini.
+	 *
+	 * @param key
+	 *            the key
+	 * @return the global config value
+	 */
 	public static String getGlobalConfigValue(String key){
 		return getIniFileValue(key, "/resources/config/globalConfig.ini");
 	}
 	
+	/**
+	 * Sleep the current thread execution.
+	 *
+	 * @param millisec
+	 *            the millisec to sleep
+	 * @throws InterruptedException
+	 *             the interrupted exception
+	 */
 	public static void waitFor(int millisec) throws InterruptedException {
 		Thread.sleep(millisec);
 	}
 	
+	/**
+	 * Upload the file to Dropbox root folder using Dropbox API call.
+	 *
+	 * @param file
+	 *            the file to be uploaded
+	 * @param dropboxFileName
+	 *            the file name after it is uploaded to Dropbox
+	 * @return true, if successful
+	 * @throws InterruptedException
+	 *             the interrupted exception
+	 * @throws DbxException
+	 *             the dbx exception
+	 * @throws FileNotFoundException
+	 *             the file not found exception
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 */
 	public static boolean uploadFile(String file, String dropboxFileName) throws InterruptedException, DbxException, FileNotFoundException, IOException {
 		DbxClientV2 client = getClient();
 		
@@ -90,6 +127,15 @@ public class Utils {
 		return true;
 	}
 	
+	/**
+	 * Gets the items (folders and files) from the Dropbox root folder.
+	 *
+	 * @return the items
+	 * @throws ListFolderErrorException
+	 *             the list folder error exception
+	 * @throws DbxException
+	 *             the dbx exception
+	 */
 	public static ListFolderResult getItems() throws ListFolderErrorException, DbxException{
 		DbxClientV2 client = getClient();
 		ListFolderResult result = getClient().files().listFolder("");
@@ -104,12 +150,22 @@ public class Utils {
         return result;
 	}
 	
+	/**
+	 * Creates list of Dropbox items. Goes recursevely thru all folders in
+	 * Dropbox root folder and adds its absolute path to the list.
+	 *
+	 * @return the array list
+	 * @throws ListFolderErrorException
+	 *             the list folder error exception
+	 * @throws DbxException
+	 *             the dbx exception
+	 */
 	public static ArrayList<String> listItems() throws ListFolderErrorException, DbxException {
 		ArrayList<String> list = new ArrayList<String>();
 		return listItems("", list);
 	}
 	
-	public static ArrayList<String> listItems(String folder, ArrayList<String> list) throws ListFolderErrorException, DbxException {
+	private static ArrayList<String> listItems(String folder, ArrayList<String> list) throws ListFolderErrorException, DbxException {
 		DbxClientV2 client = getClient();
 		ListFolderResult result = client.files().listFolder(folder);
 
@@ -129,6 +185,15 @@ public class Utils {
 		return list;
 	}
 	
+	/**
+	 * Clean up the Dropbox root folder from all custom folders and uploaded
+	 * files.
+	 *
+	 * @throws ListFolderErrorException
+	 *             the list folder error exception
+	 * @throws DbxException
+	 *             the dbx exception
+	 */
 	public static void cleanUpDropbox() throws ListFolderErrorException, DbxException{
 		DbxClientV2 client = getClient();
 		ListFolderResult result = getItems();
@@ -138,6 +203,11 @@ public class Utils {
 		}
 	}
 
+	/**
+	 * Gets the Dropbox client to perform different API Dropbox calls.
+	 *
+	 * @return the Dropbox client
+	 */
 	private static DbxClientV2 getClient() {
 		String accessToken = getGlobalConfigValue("dropbox.access.token");
 		DbxRequestConfig config = new DbxRequestConfig("dropbox/java-tutorial", "en_US");

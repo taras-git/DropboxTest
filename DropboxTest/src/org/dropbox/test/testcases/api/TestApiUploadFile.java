@@ -16,10 +16,21 @@ public class TestApiUploadFile extends BaseTestCase {
 	
 	/** The ini file, with values for this testcase */
 	String iniFile = "/resources/data/testcases/TestApiUploadFile.ini";
-
+	
+	/**
+	 * Overrides the setUp method so no browsers are start by webdriver
+	 * 
+	 * @see org.dropbox.test.basetest.BaseTestCase#setUp()
+	 */
 	@BeforeMethod
 	public void setUp(){}
 	
+	/**
+	 * Overrides the tearDown method so no browsers are closed as they are not
+	 * started
+	 * 
+	 * @see org.dropbox.test.basetest.BaseTestCase#tearDown()
+	 */
 	@AfterMethod
 	public void tearDown(){}
 	

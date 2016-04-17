@@ -22,11 +22,21 @@ public class BaseTestCase {
 	public DropboxLoginPage dropboxLoginPage;
 	public DropboxHomePage dropboxHomePage;
 	
+	/**
+	 * Create the instances of the webpages for working with them.
+	 */
 	public void initWebPages(){
 		dropboxLoginPage 		= new DropboxLoginPage(driver);
 		dropboxHomePage			= new DropboxHomePage(driver);
 	}
 	
+	/**
+	 * This methods executes before each test method. Prepared WebDirve and
+	 * WebPsges to work with them.
+	 *
+	 * @throws Exception
+	 *             the exception
+	 */
 	@BeforeMethod
 	public void setUp() throws Exception {
 		System.out.println("==>in Before");
@@ -34,6 +44,10 @@ public class BaseTestCase {
 		initWebPages();
 	}
 
+	/**
+	 * This method executes after each test method and closes all WebDriver
+	 * windows.
+	 */
 	@AfterMethod
 	public void tearDown() {
 		System.out.println("==>in After");
@@ -55,7 +69,7 @@ public class BaseTestCase {
 	}
 	
 	/**
-	 * Inits the Firefox Webdriver and sets the value of implicitly wait seconds.
+	 * Inits the Webdriver and sets the value of implicitly wait seconds.
 	 *
 	 * @return the Webdriver
 	 * @throws Exception 
@@ -73,7 +87,7 @@ public class BaseTestCase {
 			break;
 			
 		case CHROME :
-			
+			//sets the driver executable depending on current OS		
 			if (os.contains("lin")){
 				System.setProperty("webdriver.chrome.driver", Utils.getAbsolutePath() + "/resources/driver/lin/chromedriver");
 			} else if (os.contains("win")){			
@@ -91,6 +105,14 @@ public class BaseTestCase {
 		return driver;			
 	}
 	
+	/**
+	 * Login to Dropbox using user credentials provided in testng.xml file
+	 *
+	 * @param loginName
+	 *            the login name
+	 * @param password
+	 *            the password
+	 */
 	public void login(String loginName, String password) {
 		dropboxLoginPage.openDropbox();
 		if (!dropboxLoginPage.isLogoPresent()){
@@ -102,6 +124,9 @@ public class BaseTestCase {
 		}
 	}
 	
+	/**
+	 * Logout from the Dropbox Home page.
+	 */
 	public void logout() {
 		dropboxHomePage.signOut();
 		if (!dropboxLoginPage.isLogoPresent()){
@@ -109,6 +134,11 @@ public class BaseTestCase {
 		}
 	}
 	
+	/**
+	 * Delete file by its name from the root Dropbox folder
+	 *
+	 * @param fileName the file name
+	 */
 	public void deleteFile(String fileName) {
 		if (dropboxHomePage.isFileExist(fileName)) {
 			System.out.println("...found file, deleting");

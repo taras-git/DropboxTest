@@ -81,7 +81,7 @@ public class BasePage {
 
 	
 	/**
-	 * Wait fot the webelement and if it is found, send the text to webelent.
+	 * Wait for the webelement and if it is found, send the text to webelent.
 	 * 
 	 *
 	 * @param text
@@ -135,6 +135,11 @@ public class BasePage {
 		driver.switchTo().window((String) windowsSet.toArray()[0]);
 	}
 	
+	/**
+	 * Performs the right button mouse click on web element.
+	 *
+	 * @param element the element
+	 */
 	public void rightClickOnWebElement(WebElement element) {
 		Actions action= new Actions(driver);
 		action.contextClick(element)
